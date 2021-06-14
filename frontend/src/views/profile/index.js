@@ -27,8 +27,7 @@ const Profile = () => {
       {loading ? (
         <div>Loading</div>
       ) : (
-        profile.length !== 0 &&
-        profile[0].user_id !== null && (
+        profile.length && (
           <div>
             <div>{profile[0].user_name}</div>
             <div>{profile[0].date}</div>

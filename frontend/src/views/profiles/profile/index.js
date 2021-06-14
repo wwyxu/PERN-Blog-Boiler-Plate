@@ -18,8 +18,7 @@ const ProfilesList = ({ allProfiles }) => {
           </tr>
         </thead>
         <tbody>
-          {profiles.length !== 0 &&
-            profiles[0].user_id !== null &&
+          {profiles.length &&
             profiles.map((profile) => (
               <tr key={profile.user_id}>
                 <td>

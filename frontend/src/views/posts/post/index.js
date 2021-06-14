@@ -24,8 +24,7 @@ const ListPosts = ({ posts }) => {
           </tr>
         </thead>
         <tbody>
-          {allPosts.length !== 0 &&
-            allPosts[0].todo_id !== null &&
+          {allPosts.length &&
             allPosts.map((post) => (
               <tr key={post.post_id}>
                 <td>{post.header}</td>
