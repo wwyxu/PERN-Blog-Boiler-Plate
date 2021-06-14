@@ -11,9 +11,9 @@ const Profile = () => {
       const res = await API.profile.getProfile(window.location.href.split("/").reverse()[0]);
       const parseData = await res.json();
       setProfile(parseData);
-      setLoading(false);
     } catch (err) {
       console.error(err.message);
+    } finally {
       setLoading(false);
     }
   };

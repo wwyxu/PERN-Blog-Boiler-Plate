@@ -25,16 +25,15 @@ function App() {
 
   const checkAuthenticated = async () => {
     setLoading(true);
-
     try {
       const res = API.auth.verify();
       const parseRes = await res.json();
       parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
       parseRes ? storeData("isAuthenticated", true) : storeData("isAuthenticated", false);
-      setLoading(false);
     } catch (err) {
-      setLoading(false);
       console.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
