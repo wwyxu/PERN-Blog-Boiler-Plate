@@ -1,8 +1,10 @@
-const url = "http://localhost:5000/posts";
+import { baseUrl } from "../../../consts";
+
+const type = "posts";
 
 export default {
   get: () =>
-    fetch(`${url}/`, {
+    fetch(`${baseUrl}/${type}/`, {
       method: "GET",
       headers: { jwt_token: localStorage.token },
     }),
@@ -11,14 +13,14 @@ export default {
     headers.append("Content-Type", "application/json");
     headers.append("jwt_token", localStorage.token);
 
-    fetch("http://localhost:5000/posts/", {
+    fetch("${baseUrl}/${type}/posts/", {
       method: "POST",
       headers: headers,
       body: JSON.stringify(body),
     });
   },
   getMyPosts: () =>
-    fetch(`${url}/myposts`, {
+    fetch(`${baseUrl}/${type}/myposts`, {
       method: "GET",
       headers: { jwt_token: localStorage.token },
     }),
@@ -27,14 +29,14 @@ export default {
     headers.append("Content-Type", "application/json");
     headers.append("jwt_token", localStorage.token);
 
-    fetch(`${url}/${id}`, {
+    fetch(`${baseUrl}/${type}/${id}`, {
       method: "PUT",
       headers,
       body: JSON.stringify(body),
     });
   },
   delete: (id) =>
-    fetch(`${url}/${id}`, {
+    fetch(`${baseUrl}/${type}/${id}`, {
       method: "DELETE",
       headers: { jwt_token: localStorage.token },
     }),

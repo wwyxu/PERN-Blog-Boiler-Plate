@@ -92,7 +92,7 @@ const EditPost = ({ currentPost, setPostsChange }) => {
                 placeholder="Post"
                 required={true}
                 onChange={(e) => onChange(e)}
-                class="form-control my-3"
+                className="form-control my-3"
               />
               <input
                 type="category"

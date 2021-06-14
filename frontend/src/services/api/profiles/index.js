@@ -1,12 +1,12 @@
+import { baseUrl } from '../../../consts';
 
-
-const url = "http://localhost:5000/profiles";
+const type = "profiles";
 
 export default {
-    get: () => fetch(`${url}/`, {
+    get: () => fetch(`${baseUrl}/${type}/`, {
         method: "GET",
     }),
-    getProfile: (id) => fetch(`${url}/profile/${id}`, {
+    getProfile: (id) => fetch(`${baseUrl}/${type}/profile/${id}`, {
         method: "GET",
     }),
 }

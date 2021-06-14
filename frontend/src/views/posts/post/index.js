@@ -34,9 +34,9 @@ const ListPosts = ({ posts }) => {
                 <td>{shrinkPost(post.post)}</td>
                 <td>{post.date}</td>
                 <td>{post.date_updated}</td>
-                <Link to={`/profiles/${post.user_id}`}>
-                  <td>{post.user_name}</td>
-                </Link>
+                <td>
+                  <Link to={`/profiles/${post.user_id}`}>{post.user_name}</Link>
+                </td>
               </tr>
             ))}
         </tbody>

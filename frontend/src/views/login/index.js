@@ -16,7 +16,7 @@ const Login = ({ setAuth }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.auth.login({ email, password }).json();
+      const res = await API.auth.login({ email, password });
       const parseRes = await res.json();
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);

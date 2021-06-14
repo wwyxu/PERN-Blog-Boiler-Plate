@@ -3,10 +3,7 @@ import Link from "./link";
 import Header from "./header";
 import ExactLink from "./exact-link";
 
-const Sidebar = ({
-  isAuthenticated,
-  setAuth,
-}) => {
+const Sidebar = ({ isAuthenticated, setAuth }) => {
   const logout = async (e) => {
     e.preventDefault();
     try {
@@ -32,7 +29,15 @@ const Sidebar = ({
             <ExactLink link="/myposts" name="My Posts" />
             <ExactLink link="/settings" name="Settings" />
             <a
-              className="list-group-item p-2 m-2 text-center"
+              href="#"
+              className="list-group-item p-2 m-2 text-center text-white"
+              style={{
+                backgroundColor: "#343a40",
+                textDecoration: "none",
+                outline: "none",
+                border: "none",
+                borderRadius: "5px",
+              }}
               type="button"
               onClick={(e) => logout(e)}
             >

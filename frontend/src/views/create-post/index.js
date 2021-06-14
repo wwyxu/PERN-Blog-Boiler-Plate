@@ -62,7 +62,7 @@ const AddPost = ({ setAuth }) => {
           required={true}
           rows="20"
           onChange={(e) => onChange(e)}
-          class="form-control my-3"
+          className="form-control my-3"
         />
         <input
           type="category"

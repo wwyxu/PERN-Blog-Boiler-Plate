@@ -3,23 +3,17 @@ import API from "../../services/api";
 import { toast } from "react-toastify";
 
 const Settings = ({ setAuth }) => {
-  const deleteAccount = async (id) => {
+  const deleteAccount = async () => {
     if (window.confirm("Are you sure? This can NOT be undone!")) {
       try {
         const res = await API.auth.delete();
         const parseRes = await res.json();
-
-        if (parseRes) {
-          toast.success("Account Deletion Successful");
-          localStorage.removeItem("token");
-          setAuth(false);
-        } else {
-          toast.error(parseRes);
-          setAuth(false);
-        }
+        parseRes ? toast.success("Account Deletion Successful") : toast.error(parseRes);
+        localStorage.removeItem("token");
       } catch (err) {
-        setAuth(false);
         console.error(err.message);
+      } finally {
+        setAuth(false);
       }
     }
   };
