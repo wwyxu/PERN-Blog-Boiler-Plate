@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
+import API from '../../services/api';
 
 const AddPost = ({ setAuth }) => {
-  const [inputs, setInputs] = useState({
+  const defaultState = {
     header: "",
     subheader: "",
     post: "",
     category: "",
-  });
+  };
+
+  const [inputs, setInputs] = useState(defaultState);
 
   const { header, subheader, post, category } = inputs;
 
@@ -17,33 +19,14 @@ const AddPost = ({ setAuth }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const myHeaders = new Headers();
-
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("jwt_token", localStorage.token);
-
-      const body = { header, subheader, post, category };
-
-      const response = await fetch("http://localhost:5000/posts/", {
-        method: "POST",
-        headers: myHeaders,
-        body: JSON.stringify(body),
-      });
-
-      const parseRes = await response.json();
-
-      if (parseRes === "success") {
-        setInputs({
-          header: "",
-          subheader: "",
-          post: "",
-          category: "",
-        });
-        toast.success("Post created successfully");
-      } else {
-        toast.error("Something went wrong, please try again later");
-        setAuth(false);
-      }
+      const res = await API.posts.post({
+        header,
+        subheader,
+        post,
+        category,
+      }).json();
+      const parseRes = await res.json();
+      parseRes ? setInputs(defaultState) : setAuth(false);
     } catch (err) {
       console.error(err.message);
     }

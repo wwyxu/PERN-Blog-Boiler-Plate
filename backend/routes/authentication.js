@@ -29,7 +29,7 @@ router.post("/register", validation, requestDate, async (req, res) => {
       [name, email, bcryptPassword, req.requestTime]
     );
 
-    return res.json("success");
+    return res.json(true);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -86,7 +86,7 @@ router.delete("/", authorize, async (req, res) => {
     await pool.query("DELETE FROM posts WHERE user_id = $1", [req.user.id]);
     await pool.query("DELETE FROM users WHERE user_id = $1", [req.user.id]);
 
-    res.json("Account was deleted");
+    res.json(true);
   } catch (err) {
     console.error(err.message);
   }

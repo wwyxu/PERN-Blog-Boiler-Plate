@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import API from '../../services/api';
 
 const Profile = () => {
   const [profile, setProfile] = useState("");
@@ -7,13 +8,8 @@ const Profile = () => {
   const getProfile = async () => {
     setLoading(true);
     try {
-      const id = window.location.href.split("/").reverse()[0];
-      const res = await fetch(`http://localhost:5000/profiles/profile/${id}`, {
-        method: "GET",
-      });
-
+      const res = await API.profile.getProfile(window.location.href.split("/").reverse()[0]);
       const parseData = await res.json();
-
       setProfile(parseData);
       setLoading(false);
     } catch (err) {

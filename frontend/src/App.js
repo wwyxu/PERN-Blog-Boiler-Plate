@@ -3,16 +3,17 @@ import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import { getData, storeData } from "./utils/localstorage";
+import API from './services/api';
 
-import Login from "./views/Login";
-import Register from "./views/Register";
-import Landing from "./views/Landing";
+import Login from "./views/login";
+import Register from "./views/register";
+import Landing from "./views/landing";
 import Profile from "./views/profile";
-import Profiles from "./views/profiles/Profiles";
-import Posts from "./views/posts/Posts";
-import AddPost from "./views/posts/AddPost";
-import MyPosts from "./views/myposts/MyPosts";
-import Settings from "./views/settings/Settings";
+import Profiles from "./views/profiles";
+import Posts from "./views/posts";
+import AddPost from "./views/create-post";
+import MyPosts from "./views/myposts";
+import Settings from "./views/settings";
 import Sidebar from "./views/sidebar";
 
 toast.configure();
@@ -26,19 +27,10 @@ function App() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/authentication/verify", {
-        method: "POST",
-        headers: { jwt_token: localStorage.token },
-      });
-
+      const res = API.auth.verify();
       const parseRes = await res.json();
-
-      parseRes === true ? setIsAuthenticated(true) : setIsAuthenticated(false);
-
-      parseRes === true
-        ? storeData("isAuthenticated", true)
-        : storeData("isAuthenticated", false);
-
+      parseRes ? setIsAuthenticated(true) : setIsAuthenticated(false);
+      parseRes ? storeData("isAuthenticated", true) : storeData("isAuthenticated", false);
       setLoading(false);
     } catch (err) {
       setLoading(false);
@@ -48,9 +40,6 @@ function App() {
 
   useEffect(() => {
     checkAuthenticated();
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem("isAuthenticated", isAuthenticated);
   }, [isAuthenticated]);
 

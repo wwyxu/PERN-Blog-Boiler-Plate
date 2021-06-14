@@ -1,22 +1,15 @@
 import React, { Fragment } from "react";
+import API from "../../services/api";
 import { toast } from "react-toastify";
 
 const Settings = ({ setAuth }) => {
   const deleteAccount = async (id) => {
     if (window.confirm("Are you sure? This can NOT be undone!")) {
       try {
-        const myHeaders = new Headers();
+        const res = await API.auth.delete();
+        const parseRes = await res.json();
 
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("jwt_token", localStorage.token);
-
-        const response = await fetch(`http://localhost:5000/authentication/`, {
-          method: "DELETE",
-          headers: myHeaders,
-        });
-        const parseRes = await response.json();
-
-        if (parseRes === "Account was deleted") {
+        if (parseRes) {
           toast.success("Account Deletion Successful");
           localStorage.removeItem("token");
           setAuth(false);

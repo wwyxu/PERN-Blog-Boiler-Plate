@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from "react";
-import ProfilesList from "./ProfilesList";
+import Profile from "./profile";
+import API from '../../services/api';
 
 const Profiles = () => {
   const [allProfiles, setAllProfiles] = useState([]);
 
   const getProfiles = async () => {
     try {
-      const res = await fetch("http://localhost:5000/profiles/", {
-        method: "GET",
-      });
-
+      const res = await API.profiles.get();
       const parseData = await res.json();
-
       setAllProfiles(parseData);
     } catch (err) {
       console.error(err.message);
@@ -25,7 +22,7 @@ const Profiles = () => {
   return (
     <div className="jumbotron mt-5">
       <h1>Profiles</h1>
-      <ProfilesList allProfiles={allProfiles} />
+      <Profile allProfiles={allProfiles} />
     </div>
   );
 };

@@ -1,30 +1,26 @@
-import React, { Fragment, useState, useEffect } from "react";
-import EditPost from "./EditPost";
-import { shrinkPost } from "../../utils/post";
+import React, { useState, useEffect } from "react";
+import EditPost from "./edit";
+import { shrinkPost } from "../../../utils/post";
+import API from '../../../services/api';
 
 const ListMyPosts = ({ posts, setPostsChange }) => {
   const [allPosts, setAllPosts] = useState([]);
-
-  async function deletePost(id) {
-    try {
-      await fetch(`http://localhost:5000/posts/${id}`, {
-        method: "DELETE",
-        headers: { jwt_token: localStorage.token },
-      });
-
-      setAllPosts(posts.filter((posts) => posts.post_id !== id));
-    } catch (err) {
-      console.error(err.message);
-    }
-  }
 
   useEffect(() => {
     setAllPosts(posts);
   }, [posts]);
 
+  const deletePost = async (id) => {
+    try {
+      await API.posts.delete(id);
+      setAllPosts(posts.filter((posts) => posts.post_id !== id));
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   return (
-    <Fragment>
-      {" "}
+    <>
       <table className="table">
         <thead>
           <tr>
@@ -68,7 +64,7 @@ const ListMyPosts = ({ posts, setPostsChange }) => {
             ))}
         </tbody>
       </table>
-    </Fragment>
+    </>
   );
 };
 

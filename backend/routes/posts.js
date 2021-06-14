@@ -40,12 +40,12 @@ router.post("/", authorize, requestDate, async (req, res) => {
   try {
     const { header, subheader, post, category } = req.body;
 
-    const newPost = await pool.query(
+    await pool.query(
       "INSERT INTO POSTS (user_id, header, subheader, post, category, date) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
       [req.user.id, header, subheader, post, category, req.requestTime]
     );
 
-    return res.json("success");
+    return res.json(true);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
@@ -68,10 +68,10 @@ router.put("/:id", authorize, requestDate, async (req, res) => {
     );
 
     if (updatePost.rows.length === 0) {
-      return res.json("You are not authorized to modify this post");
+      return res.status(401).json("You are not authorized to modify this post");
     }
 
-    res.json("Post was updated");
+    res.json(true);
   } catch (err) {
     console.error(err.message);
   }
@@ -88,10 +88,10 @@ router.delete("/:id", authorize, async (req, res) => {
     );
 
     if (deletePost.rows.length === 0) {
-      return res.json("You are not authorized to delete this post");
+      return res.status(401).json("You are not authorized to delete this post");
     }
 
-    res.json("Todo was deleted");
+    res.json(true);
   } catch (err) {
     console.error(err.message);
   }

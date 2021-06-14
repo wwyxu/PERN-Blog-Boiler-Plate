@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from "react";
-
+import API from '../../services/api';
 import { toast } from "react-toastify";
 
 const Login = ({ setAuth }) => {
@@ -16,20 +16,8 @@ const Login = ({ setAuth }) => {
   const onSubmitForm = async (e) => {
     e.preventDefault();
     try {
-      const body = { email, password };
-      const response = await fetch(
-        "http://localhost:5000/authentication/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
-
-      const parseRes = await response.json();
-
+      const res = await API.auth.login({ email, password }).json();
+      const parseRes = await res.json();
       if (parseRes.jwtToken) {
         localStorage.setItem("token", parseRes.jwtToken);
         setAuth(true);

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { toast } from "react-toastify";
+import API from '../../services/api';
 
 const Register = () => {
   const [inputs, setInputs] = useState({
@@ -9,7 +10,6 @@ const Register = () => {
     name: "",
   });
   const [loading, setLoading] = useState(false);
-
   const { email, password, password2, name } = inputs;
 
   const onChange = (e) =>
@@ -20,29 +20,13 @@ const Register = () => {
     if (password !== password2) {
       toast.error("Passwords must match");
       return;
-    } else {
-      try {
-        const body = { email, password, name };
-        const response = await fetch(
-          "http://localhost:5000/authentication/register",
-          {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify(body),
-          }
-        );
-        const parseRes = await response.json();
-
-        if (parseRes === "success") {
-          toast.success("Registration Successful");
-        } else {
-          toast.error(parseRes);
-        }
-      } catch (err) {
-        console.error(err.message);
-      }
+    }
+    try {
+      const res = await API.auth.register({ email, password, name });
+      const parseRes = await res.json();
+      parseRes ? toast.success("Registration Successful") : toast.error(parseRes);
+    } catch (err) {
+      console.error(err.message);
     }
   };
 

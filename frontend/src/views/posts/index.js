@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-import ListPosts from "./ListPosts";
+import API from '../../services/api';
+import Post from "./post";
 
 const Posts = () => {
   const [posts, setPosts] = useState([]);
@@ -8,14 +8,8 @@ const Posts = () => {
 
   const getPosts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/posts/", {
-        method: "GET",
-      });
-
+      const res = await API.posts.get();
       const parseData = await res.json();
-
-      console.log(parseData);
-
       setPosts(parseData);
     } catch (err) {
       console.error(err.message);
@@ -31,7 +25,7 @@ const Posts = () => {
     <div>
       <div className="mt-5">
         <h2 className="text-center mb-3">Latest Feed</h2>
-        <ListPosts posts={posts} />
+        <Post posts={posts} />
       </div>
     </div>
   );

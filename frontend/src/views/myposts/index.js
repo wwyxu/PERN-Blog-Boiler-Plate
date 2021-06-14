@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-import ListMyPosts from "./ListMyPosts";
+import Post from "./post";
+import API from '../../services/api';
 
 const MyPosts = ({ setAuth }) => {
   const [posts, setPosts] = useState([]);
@@ -8,15 +8,8 @@ const MyPosts = ({ setAuth }) => {
 
   const getPosts = async () => {
     try {
-      const res = await fetch("http://localhost:5000/posts/myposts", {
-        method: "GET",
-        headers: { jwt_token: localStorage.token },
-      });
-
+      const res = await API.posts.getMyPosts();
       const parseData = await res.json();
-
-      console.log(parseData);
-
       setPosts(parseData);
     } catch (err) {
       setAuth(false);
@@ -33,7 +26,7 @@ const MyPosts = ({ setAuth }) => {
     <div>
       <div className="mt-5">
         <h2 className="text-center mb-3">My Posts</h2>
-        <ListMyPosts posts={posts} setPostsChange={setPostsChange} />
+        <Post posts={posts} setPostsChange={setPostsChange} />
       </div>
     </div>
   );

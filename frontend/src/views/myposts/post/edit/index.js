@@ -1,29 +1,7 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
+import API from '../../../../services/api';
 
 const EditPost = ({ currentPost, setPostsChange }) => {
-  const editPost = async (id) => {
-    try {
-      const body = { header, subheader, post, category };
-
-      const myHeaders = new Headers();
-
-      myHeaders.append("Content-Type", "application/json");
-      myHeaders.append("jwt_token", localStorage.token);
-
-      await fetch(`http://localhost:5000/posts/${id}`, {
-        method: "PUT",
-        headers: myHeaders,
-        body: JSON.stringify(body),
-      });
-
-      setPostsChange(true);
-
-      // window.location = "/";
-    } catch (err) {
-      console.error(err.message);
-    }
-  };
-
   const [inputs, setInputs] = useState({
     header: currentPost.header,
     subheader: currentPost.subheader,
@@ -33,11 +11,20 @@ const EditPost = ({ currentPost, setPostsChange }) => {
 
   const { header, subheader, post, category } = inputs;
 
+  const editPost = async (id) => {
+    try {
+      await API.posts.put(id, JSON.stringify({ header, subheader, post, category }));
+      setPostsChange(true);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   const onChange = (e) =>
     setInputs({ ...inputs, [e.target.name]: e.target.value });
 
   return (
-    <Fragment>
+    <>
       <button
         type="button"
         className="btn btn-warning"
@@ -145,7 +132,7 @@ const EditPost = ({ currentPost, setPostsChange }) => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </>
   );
 };
 

@@ -1,17 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { shrinkPost } from "../../utils/post";
+import { shrinkPost } from "../../../utils/post";
 
 const ListPosts = ({ posts }) => {
-  const [allPosts, setAllPosts] = useState([]); //empty array
+  const [allPosts, setAllPosts] = useState([]);
 
   useEffect(() => {
     setAllPosts(posts);
   }, [posts]);
 
   return (
-    <Fragment>
-      {" "}
+    <>
       <table className="table">
         <thead>
           <tr>
@@ -42,7 +41,7 @@ const ListPosts = ({ posts }) => {
             ))}
         </tbody>
       </table>
-    </Fragment>
+    </>
   );
 };
 
