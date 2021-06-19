@@ -31,7 +31,7 @@ export default {
   },
   verify: () => {
     fetch(`${baseUrl}/${type}/verify`, {
-      method: "DELETE",
+      method: "POST",
       headers: { jwt_token: localStorage.token },
     });
   },

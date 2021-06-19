@@ -22,7 +22,7 @@ const Posts = () => {
   }, [postsChange]);
 
   return (
-    <div>
+    <div className="container">
       <div className="mt-5">
         <h2 className="text-center mb-3">Latest Feed</h2>
         <Post posts={posts} />

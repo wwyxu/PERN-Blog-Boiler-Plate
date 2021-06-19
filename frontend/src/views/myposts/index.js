@@ -6,18 +6,18 @@ const MyPosts = ({ setAuth }) => {
   const [posts, setPosts] = useState([]);
   const [postsChange, setPostsChange] = useState(false);
 
-  const getPosts = async () => {
-    try {
-      const res = await API.posts.getMyPosts();
-      const parseData = await res.json();
-      setPosts(parseData);
-    } catch (err) {
-      setAuth(false);
-      console.error(err.message);
-    }
-  };
-
   useEffect(() => {
+    const getPosts = async () => {
+      try {
+        const res = await API.posts.getMyPosts();
+        const parseData = await res.json();
+        setPosts(parseData);
+      } catch (err) {
+        setAuth(false);
+        console.error(err.message);
+      }
+    };
+
     getPosts();
     setPostsChange(false);
   }, [postsChange]);

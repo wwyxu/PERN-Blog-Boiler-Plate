@@ -24,7 +24,7 @@ const AddPost = ({ setAuth }) => {
         subheader,
         post,
         category,
-      }).json();
+      });
       const parseRes = await res.json();
       parseRes ? setInputs(defaultState) : setAuth(false);
     } catch (err) {

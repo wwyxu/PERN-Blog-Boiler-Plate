@@ -8,7 +8,7 @@ const Profile = () => {
   const getProfile = async () => {
     setLoading(true);
     try {
-      const res = await API.profile.getProfile(window.location.href.split("/").reverse()[0]);
+      const res = await API.profiles.getProfile(window.location.href.split("/").reverse()[0]);
       const parseData = await res.json();
       setProfile(parseData);
     } catch (err) {

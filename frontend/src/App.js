@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -47,7 +47,6 @@ function App() {
   };
 
   return (
-    <Fragment>
       <BrowserRouter>
         <div className="container-fluid p-0">
           <div className="row no-gutters">
@@ -148,7 +147,6 @@ function App() {
           </div>
         </div>
       </BrowserRouter>
-    </Fragment>
   );
 }
 

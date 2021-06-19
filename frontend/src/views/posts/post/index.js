@@ -10,7 +10,6 @@ const ListPosts = ({ posts }) => {
   }, [posts]);
 
   return (
-    <>
       <table className="table">
         <thead>
           <tr>
@@ -40,7 +39,6 @@ const ListPosts = ({ posts }) => {
             ))}
         </tbody>
       </table>
-    </>
   );
 };
 
