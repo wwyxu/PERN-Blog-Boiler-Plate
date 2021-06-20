@@ -1,5 +1,3 @@
-# We Blog
-
 1. Install dependencies using npm install
 2. Create local table in postgreSQL with SQL file
 3. Fill in db.js details
@@ -8,6 +6,6 @@
 
 Tech Stack:
 Backend:
-Node.js, PostgreSQL, Express, Bcrypt, JSON Web tokens
+Node.js, PostgreSQL, Express, Bcrypt, JWT
 Frontend:
 React (Hooks), Bootstrap
